@@ -1,0 +1,631 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cena de Amor & Amistad - Glam Edition</title>
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700&family=Great+Vibes&family=Playfair+Display:ital,wght@0,600;1,400&family=Montserrat:wght@300;400;600&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --gold-light: #fff0be;
+      --gold-primary: #d4af37;
+      --gold-dark: #aa7c11;
+      --gold-gradient: linear-gradient(135deg, #bf953f 0%, #fcf6ba 25%, #b38728 50%, #fbf5b7 75%, #aa7c11 100%);
+      --bg-dark: #0a0806;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background-color: var(--bg-dark);
+      color: #ffffff;
+      font-family: 'Montserrat', sans-serif;
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 20px 10px;
+      position: relative;
+    }
+
+    .screen {
+      display: none;
+      width: 100%;
+      max-width: 480px;
+      animation: fadeIn 0.5s ease-in-out;
+    }
+
+    .screen.active { display: block; }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .cover-card {
+      background: rgba(15, 12, 8, 0.88);
+      border: 1px solid var(--gold-primary);
+      border-radius: 20px;
+      padding: 30px 20px;
+      box-shadow: 0 0 25px rgba(212, 175, 55, 0.25), inset 0 0 15px rgba(212, 175, 55, 0.1);
+      backdrop-filter: blur(5px);
+      position: relative;
+      overflow: hidden;
+      text-align: center;
+    }
+
+    .translucent-bg {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      opacity: 0.18;
+      z-index: -1;
+      transition: src 0.3s ease;
+    }
+
+    .header-glam { position: relative; margin-bottom: 20px; }
+
+    .sub-title {
+      font-family: 'Great Vibes', cursive;
+      font-size: 2.5rem;
+      color: var(--gold-light);
+      display: block;
+      margin-bottom: -10px;
+      text-shadow: 0 0 10px rgba(255, 240, 190, 0.5);
+    }
+
+    .main-title {
+      font-family: 'Cinzel Decorative', serif;
+      font-size: 2rem;
+      font-weight: 700;
+      background: var(--gold-gradient);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      position: relative;
+      display: inline-block;
+      margin: 10px 0 0 0;
+      filter: drop-shadow(0 2px 8px rgba(0,0,0,0.8));
+    }
+
+    .floating-heart {
+      font-size: 1.5rem;
+      position: absolute;
+      top: -10px;
+      right: -25px;
+      animation: floatHeart 3s ease-in-out infinite;
+    }
+
+    @keyframes floatHeart {
+      0%, 100% { transform: translateY(0) rotate(10deg); }
+      50% { transform: translateY(-8px) rotate(-5deg); }
+    }
+
+    .sparkles-decor {
+      color: var(--gold-primary);
+      font-size: 0.9rem;
+      margin-top: 5px;
+      letter-spacing: 6px;
+      opacity: 0.8;
+    }
+
+    .saludo-personalizado {
+      font-family: 'Great Vibes', cursive;
+      font-size: 2.2rem;
+      color: var(--gold-light);
+      margin-bottom: 10px;
+    }
+
+    .cover-message p {
+      margin-bottom: 16px;
+      line-height: 1.7;
+      font-size: 0.95rem;
+      color: #e0e0e0;
+      font-family: 'Playfair Display', serif;
+    }
+
+    .cover-message .highlight-text {
+      color: var(--gold-primary);
+      font-weight: 600;
+      margin-top: 20px;
+      font-style: italic;
+    }
+
+    .btn-primary {
+      background: var(--gold-gradient);
+      color: #000;
+      border: none;
+      padding: 12px 24px;
+      border-radius: 25px;
+      font-weight: 600;
+      font-size: 0.95rem;
+      cursor: pointer;
+      box-shadow: 0 0 15px rgba(212, 175, 55, 0.4);
+      transition: all 0.3s ease;
+      margin-top: 15px;
+      width: 100%;
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 0 20px rgba(212, 175, 55, 0.6);
+    }
+
+    .btn-back {
+      background: transparent;
+      color: var(--gold-primary);
+      border: 1px solid var(--gold-primary);
+      padding: 8px 16px;
+      border-radius: 20px;
+      font-size: 0.85rem;
+      cursor: pointer;
+      margin-top: 20px;
+      transition: all 0.3s ease;
+    }
+
+    .game-box {
+      background: rgba(0, 0, 0, 0.6);
+      border: 1px solid var(--gold-primary);
+      padding: 20px;
+      border-radius: 15px;
+      margin-bottom: 10px;
+    }
+
+    .game-title {
+      font-family: 'Great Vibes', cursive;
+      color: var(--gold-primary);
+      font-size: 2.2rem;
+    }
+
+    .pistas-box {
+      background: rgba(212, 175, 55, 0.08);
+      border: 1px dashed var(--gold-primary);
+      border-radius: 12px;
+      padding: 12px 15px;
+      margin: 15px 0;
+    }
+
+    .pista-tag {
+      font-size: 0.8rem;
+      color: var(--gold-light);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      font-weight: bold;
+    }
+
+    .pista-content {
+      font-size: 0.95rem;
+      color: #ffffff;
+      font-style: italic;
+      margin: 8px 0;
+      font-family: 'Playfair Display', serif;
+    }
+
+    .btn-pista-next {
+      background: transparent;
+      border: 1px solid var(--gold-primary);
+      color: var(--gold-primary);
+      font-size: 0.75rem;
+      padding: 4px 10px;
+      border-radius: 15px;
+      cursor: pointer;
+    }
+
+    .game-word {
+      font-size: 2rem;
+      letter-spacing: 8px;
+      color: #fff;
+      font-weight: bold;
+      margin: 20px 0;
+    }
+
+    .game-keyboard {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(35px, 1fr));
+      gap: 6px;
+      margin-top: 15px;
+    }
+
+    .key-btn {
+      background: transparent;
+      border: 1px solid var(--gold-primary);
+      color: var(--gold-primary);
+      padding: 8px;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 0.9rem;
+    }
+
+    .key-btn:disabled {
+      border-color: #444;
+      color: #444;
+      opacity: 0.4;
+    }
+
+    .form-group { text-align: left; margin-bottom: 18px; }
+    .form-group label { display: block; color: var(--gold-light); font-size: 0.85rem; margin-bottom: 6px; font-weight: 600; }
+    .form-control {
+      width: 100%;
+      padding: 10px 14px;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid var(--gold-primary);
+      border-radius: 8px;
+      color: #fff;
+      font-family: 'Montserrat', sans-serif;
+      font-size: 0.9rem;
+    }
+    select.form-control option { background-color: var(--bg-dark); color: #fff; }
+
+    .sparkle-particle {
+      position: fixed;
+      width: 4px;
+      height: 4px;
+      background: var(--gold-light);
+      border-radius: 50%;
+      box-shadow: 0 0 6px var(--gold-primary);
+      opacity: 0;
+      animation: sparkleAnim 4s infinite ease-in-out;
+      pointer-events: none;
+    }
+
+    @keyframes sparkleAnim {
+      0% { opacity: 0; transform: scale(0.3); }
+      50% { opacity: 0.8; transform: scale(1.2); }
+      100% { opacity: 0; transform: scale(0.3); }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- PANTALLA 1: PORTADA -->
+  <section id="pantalla-portada" class="screen active">
+    <div class="cover-card">
+      <img id="foto-portada" src="img/vale.jpg" class="translucent-bg" alt="Fondo Amigas">
+      
+      <div class="header-glam">
+        <span class="sub-title">Invitación Especial de</span>
+        <h1 class="main-title">
+          Amor & Amistad
+          <span class="floating-heart">💛</span>
+        </h1>
+        <div class="sparkles-decor">✦ ✨ ✦</div>
+      </div>
+
+      <div id="saludo-portada" class="saludo-personalizado"></div>
+
+      <div class="cover-message">
+        <p>
+          Hay amistades que nacen de repente y se sienten de toda la vida; 
+          otras que han resistido años, proyectos y diferencias para hacerse inquebrantables; 
+          y otras que son refugio, risas y la familia que se elige día a día.
+        </p>
+        <p>
+          Cada una representa una parte fundamental en mi vida.<br>
+          Gracias por ser mi apoyo en tantos momentos,por aceptarme como soy y ser mi compañia favorita.
+        </p>
+        <p class="highlight-text">
+          Esta día es para brindar por nosotras, por lo que hemos construido y por todo lo que nos falta por vivir.<br>
+          ¡SALUD!
+        </p>
+      </div>
+
+      <button type="button" class="btn-primary" onclick="goToScreen('pantalla-juego')">
+        Comenzar la experiencia ✨
+      </button>
+    </div>
+  </section>
+
+  <!-- PANTALLA 2: JUEGO -->
+  <section id="pantalla-juego" class="screen">
+    <div class="cover-card">
+      <div id="ahorcado-container" class="game-box">
+        <div class="golden-heart-icon">💛</div>
+        <h3 class="game-title">¿Si pudiera elegir una cualidad tuya, cual crees que sería? ¡Juega!</h3>
+        
+        <div class="pistas-box">
+          <span class="pista-tag">✨ Pista sobre ti:</span>
+          <p id="pista-texto" class="pista-content">Cargando pista...</p>
+          <button type="button" id="btn-siguiente-pista" class="btn-pista-next" onclick="mostrarSiguientePista()">
+            💡 Otra pista (<span id="pistas-restantes">2</span>)
+          </button>
+        </div>
+
+        <div id="word-display" class="game-word">_ _ _ _</div>
+        <p style="font-size: 0.85rem; color: #aaa;">Vidas restantes: <span id="attempts" style="color: var(--gold-primary);">6</span></p>
+        
+        <div id="keyboard" class="game-keyboard"></div>
+      </div>
+
+      <button type="button" class="btn-back" onclick="goToScreen('pantalla-portada')">
+        ← Volver a la portada
+      </button>
+    </div>
+  </section>
+
+  <!-- PANTALLA 3: FORMULARIO -->
+  <section id="pantalla-formulario" class="screen">
+    <div class="cover-card">
+      <div class="header-glam">
+        <span class="sub-title">Confirmación</span>
+        <h2 class="main-title">Reserva tu Lugar 🥂</h2>
+        <div class="sparkles-decor">✦ ✨ ✦</div>
+      </div>
+      
+      <form id="rsvp-form" onsubmit="enviarWhatsApp(event)">
+        <div class="form-group">
+          <label for="nombre">Tu Nombre:</label>
+          <input type="text" id="nombre" class="form-control" required placeholder="Ingresa tu nombre">
+        </div>
+
+        <div class="form-group">
+          <label for="asistencia">¿Me acompañas a celebrar?:</label>
+          <select id="asistencia" class="form-control" required>
+            <option value="¡Sí, ahí estaré sin falta! 🥂">¡Sí, ahí estaré sin falta! 🥂</option>
+            <option value="Lo siento, me es imposible asistir 😔">Lo siento, me es imposible asistir 😔</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="plato">Cual es tu preferencia en las comidas?:</label>
+          <select id="plato" class="form-control" required>
+            <option value="Opción Menú Especial 🍽️">Opción Menú Especial 🍽️</option>
+            <option value="Opción Vegetariana 🥗">Opción Vegetariana 🥗</option>
+            <option value="Sin preferencia / Sorpréndeme ✨">Sin preferencia / Sorpréndeme ✨</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="mensaje">Mensaje, bebida o Canción que quieres sugerirme:</label>
+          <textarea id="mensaje" class="form-control" rows="3" placeholder="Escribe un mensaje o sugiere una canción..."></textarea>
+        </div>
+
+        <button type="submit" class="btn-primary">
+          Confirmar Asistencia en WhatsApp 📲
+        </button>
+      </form>
+
+      <button type="button" class="btn-back" onclick="goToScreen('pantalla-portada')">
+        ← Volver al inicio
+      </button>
+    </div>
+  </section>
+
+  <script>
+    var claveAmiga = "VALE";
+    var MAX_ATTEMPTS = 6;
+    var wordToGuess = "";
+    var guessedLetters = [];
+    var attemptsLeft = MAX_ATTEMPTS;
+    var pistaActualIndex = 0;
+    var listaPistasActuales = [];
+
+    var datosAmigas = {
+      VALE: {
+        nombreLegible: "Vale",
+        imagen: "img/Vale.jpg.jpeg",
+        palabra: "DISCIPLINADA",
+        pistas: [
+          "Pista 1: Es la cualidad que demuestras cada mañana en el gym 💪",
+          "Pista 2: La clave con la que construyes tus metas y tu nueva etapa 🏠",
+          "Pista 3: Tu constancia inspira a cualquiera que esté a tu lado ✨"
+        ]
+      },
+      CATA: {
+        nombreLegible: "Cata",
+        imagen: "img/Cata.jpg.jpeg",
+        palabra: "NOBLEZA",
+        pistas: [
+          "Pista 1: Es el rasgo de tu corazón que te hace brillar frente a la cámara 📸",
+          "Pista 2: Lo que permitió sanar, perdonar y volver inquebrantable lo nuestro 🔗",
+          "Pista 3: Tu capacidad única de entregar amor puro sin guardar rencor 🤍"
+        ]
+      },
+      DIANA: {
+        nombreLegible: "Diana",
+        imagen: "img/Diana.jpg.jpeg",
+        palabra: "ALEGRIA",
+        pistas: [
+          "Pista 1: El motor con el que enciendes la pista cada vez que bailamos salsa 💃",
+          "Pista 2: Lo que transmites todos los días en nuestras charlas infaltables 📲",
+          "Pista 3: La luz especial con la que iluminas la vida de mi hij@ 🥹"
+        ]
+      }
+    };
+
+    function goToScreen(screenId) {
+      document.querySelectorAll('.screen').forEach(function(screen) {
+        screen.classList.remove('active');
+      });
+      var targetScreen = document.getElementById(screenId);
+      if (targetScreen) {
+        targetScreen.classList.add('active');
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      }
+    }
+
+    function cargarDatosPersonalizados() {
+      var hash = window.location.hash.replace('#', '').toUpperCase();
+      var urlParams = new URLSearchParams(window.location.search);
+      var paramNombre = (urlParams.get('nombre') || hash).toUpperCase();
+
+      if (paramNombre && datosAmigas[paramNombre]) {
+        claveAmiga = paramNombre;
+      } else {
+        claveAmiga = "VALE";
+      }
+
+      var datos = datosAmigas[claveAmiga];
+
+      // Cambia la imagen de fondo de la portada
+      var fotoElem = document.getElementById('foto-portada');
+      if (fotoElem && datos.imagen) {
+        fotoElem.src = datos.imagen;
+      }
+
+      // Cambia el saludo personalizado
+      var saludoElem = document.getElementById('saludo-portada');
+      if (saludoElem) {
+        saludoElem.innerText = "¡Para ti, " + datos.nombreLegible + "! ✨";
+      }
+
+      // Prepara el juego
+      wordToGuess = datos.palabra;
+      listaPistasActuales = datos.pistas;
+      guessedLetters = [];
+      attemptsLeft = MAX_ATTEMPTS;
+      pistaActualIndex = 0;
+
+      // Auto-rellena el nombre en el formulario
+      var inputNombre = document.getElementById('nombre');
+      if (inputNombre) inputNombre.value = datos.nombreLegible;
+
+      actualizarPistaEnPantalla();
+      updateUI();
+      generateKeyboard();
+    }
+
+    function actualizarPistaEnPantalla() {
+      var textoPista = document.getElementById('pista-texto');
+      var contador = document.getElementById('pistas-restantes');
+      var btnPista = document.getElementById('btn-siguiente-pista');
+
+      if (textoPista) textoPista.innerText = listaPistasActuales[pistaActualIndex];
+      
+      var restantes = (listaPistasActuales.length - 1) - pistaActualIndex;
+      if (contador) contador.innerText = restantes;
+      
+      if (btnPista) {
+        btnPista.style.display = (restantes <= 0) ? 'none' : 'inline-block';
+      }
+    }
+
+    function mostrarSiguientePista() {
+      if (pistaActualIndex < listaPistasActuales.length - 1) {
+        pistaActualIndex++;
+        actualizarPistaEnPantalla();
+      }
+    }
+
+    function updateUI() {
+      var attemptsElem = document.getElementById('attempts');
+      if (attemptsElem) attemptsElem.innerText = attemptsLeft;
+
+      var displayWord = "";
+      for (var i = 0; i < wordToGuess.length; i++) {
+        var char = wordToGuess[i];
+        if (guessedLetters.indexOf(char) !== -1) {
+          displayWord += char + " ";
+        } else {
+          displayWord += "_ ";
+        }
+      }
+      var wordDisplay = document.getElementById('word-display');
+      if (wordDisplay) wordDisplay.innerText = displayWord.trim();
+
+      checkGameStatus();
+    }
+
+    function generateKeyboard() {
+      var keyboard = document.getElementById('keyboard');
+      if (!keyboard) return;
+      keyboard.innerHTML = "";
+      var letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+
+      for (var i = 0; i < letters.length; i++) {
+        (function(letter) {
+          var button = document.createElement('button');
+          button.innerText = letter;
+          button.className = "key-btn";
+          button.onclick = function(e) { guessLetter(letter, e.target); };
+          keyboard.appendChild(button);
+        })(letters[i]);
+      }
+    }
+
+    function guessLetter(letter, buttonElement) {
+      buttonElement.disabled = true;
+      if (wordToGuess.indexOf(letter) !== -1) {
+        guessedLetters.push(letter);
+      } else {
+        attemptsLeft--;
+      }
+      updateUI();
+    }
+
+    function checkGameStatus() {
+      var allLettersGuessed = true;
+      for (var i = 0; i < wordToGuess.length; i++) {
+        if (guessedLetters.indexOf(wordToGuess[i]) === -1) {
+          allLettersGuessed = false;
+          break;
+        }
+      }
+
+      var container = document.getElementById('ahorcado-container');
+
+      if (allLettersGuessed && container) {
+        container.innerHTML = '<div style="text-align:center; padding: 15px;">' +
+          '<p class="game-title">✨ ¡Felicidades ' + datosAmigas[claveAmiga].nombreLegible + '! ✨</p>' +
+          '<p style="margin: 10px 0;">Descifraste tu cualidad especial: <b>' + wordToGuess + '</b></p>' +
+          '<button type="button" class="btn-primary" onclick="goToScreen(\'pantalla-formulario\')">' +
+            '🔓 Ver Formulario de Invitación' +
+          '</button>' +
+        '</div>';
+      } else if (attemptsLeft <= 0 && container) {
+        container.innerHTML = '<div style="text-align:center; padding: 15px;">' +
+          '<p class="game-title" style="color: #e74c3c;">😔 ¡Te quedaste sin vidas!</p>' +
+          '<p style="margin: 10px 0;">Tu cualidad secreta era <b>' + wordToGuess + '</b>.</p>' +
+          '<button type="button" class="btn-back" onclick="cargarDatosPersonalizados()">' +
+            '🔄 Intentar de Nuevo' +
+          '</button>' +
+        '</div>';
+      }
+    }
+
+    function enviarWhatsApp(event) {
+      event.preventDefault();
+      
+      var numeroTelefono = "573000000000"; 
+      var nombre = document.getElementById('nombre').value;
+      var asistencia = document.getElementById('asistencia').value;
+      var plato = document.getElementById('plato').value;
+      var mensaje = document.getElementById('mensaje').value;
+
+      var textoWhatsApp = "¡Hola! Confirmación de Invitación - Cena Glam 🥂\n\n";
+      textoWhatsApp += "Nombre: " + nombre + "\n";
+      textoWhatsApp += "Asistencia: " + asistencia + "\n";
+      textoWhatsApp += "Preferencia Cena: " + plato + "\n";
+      if (mensaje) {
+        textoWhatsApp += "Mensaje: " + mensaje + "\n";
+      }
+
+      window.open("https://wa.me/" + numeroTelefono + "?text=" + encodeURIComponent(textoWhatsApp), '_blank');
+    }
+
+    function createSparkles() {
+      for (var i = 0; i < 20; i++) {
+        var sparkle = document.createElement('div');
+        sparkle.className = 'sparkle-particle';
+        sparkle.style.left = Math.random() * 100 + "%";
+        sparkle.style.top = Math.random() * 100 + "%";
+        sparkle.style.animationDelay = Math.random() * 3 + "s";
+        document.body.appendChild(sparkle);
+      }
+    }
+
+    window.addEventListener('hashchange', cargarDatosPersonalizados);
+    window.addEventListener('DOMContentLoaded', function() {
+      cargarDatosPersonalizados();
+      createSparkles();
+    });
+  </script>
+</body>
+</html>
